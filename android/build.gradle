@@ -127,5 +127,5 @@ dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'com.swifttechnology.imepaysdk:payment-service:3.0.1'
+  implementation 'com.swifttechnology.imepaysdk:payment-service:4.0.1'
 }
