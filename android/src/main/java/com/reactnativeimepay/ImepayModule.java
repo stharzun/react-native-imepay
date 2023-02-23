@@ -30,43 +30,44 @@ public class ImepayModule extends ReactContextBaseJavaModule {
     return "Imepay";
   }
 
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
-  @ReactMethod
-  public void makePayment(String MERCHANT_CODE, String MERCHANT_NAME, String MERCHANT_TRANSACTION_RECORDING_URL, String AMOUNT, String REFERENCE_ID, String MODULE, String USERNAME, String PASSWORD, String ENV, Promise promise) {
+    // Example method
+    // See https://reactnative.dev/docs/native-modules-android
+    @ReactMethod
+    public void makePayment(String MERCHANT_CODE, String MERCHANT_NAME,String MERCHANT_RECORD_URL,String MERCHANT_DELIVER_URL, String AMOUNT,String REFERENCE_ID,String MODULE,String USERNAME,String PASSWORD, String ENV,  Promise promise) {
 
 
     IMEPayment imePayment = new IMEPayment(getCurrentActivity(), ENV.equals("PROD") ? ENVIRONMENT.LIVE : ENVIRONMENT.TEST);
 
-    imePayment.performPaymentV1(MERCHANT_CODE,
-      MERCHANT_NAME,
-      MERCHANT_TRANSACTION_RECORDING_URL,
-      AMOUNT,
-      REFERENCE_ID,
-      MODULE,
-      USERNAME,
-      PASSWORD,
-      new IMEPaymentCallback() {
-        @Override
-        public void onSuccess(int responseCode, String responseDescription, String transactionId, String msisdn, String amount, String refId) {
-          // Response Code 100 : Transaction successful.
-          // Response Code 101 : Transaction failed.
-          // responseDescription : Message sent from server, contains transaction success message/ failure message with reason
-          // transactionId : Unique ID generated from IME pay system
-          // msisdn : Customer Mobile Number
-          // amount : Amount paid by customer
-          // refId : Reference Value
-          WritableMap map = Arguments.createMap();
-          map.putString("responseCode", String.valueOf(responseCode));
-          map.putString("responseDescription", responseDescription);
-          map.putString("transactionId", transactionId);
-          map.putString("msisdn", msisdn);
-          map.putString("amount", amount);
-          map.putString("refId", refId);
-          promise.resolve(map);
-        }
-      });
-  }
+        imePayment.performPaymentV1(MERCHANT_CODE,
+                          MERCHANT_NAME,
+                          MERCHANT_RECORD_URL,
+                          MERCHANT_DELIVER_URL,
+                          AMOUNT,
+                          REFERENCE_ID,
+                          MODULE,
+                          USERNAME,
+                          PASSWORD,
+                          new IMEPaymentCallback() {
+           @Override
+           public void onSuccess(int responseCode, String responseDescription, String transactionId, String msisdn, String    amount, String refId) {
+              // Response Code 100 : Transaction successful.
+              // Response Code 101 : Transaction failed.
+              // responseDescription : Message sent from server, contains transaction success message/ failure message with reason
+              // transactionId : Unique ID generated from IME pay system
+              // msisdn : Customer Mobile Number
+              // amount : Amount paid by customer
+              // refId : Reference Value
+             WritableMap map = Arguments.createMap();
+             map.putString("responseCode", String.valueOf(responseCode));
+             map.putString("responseDescription", responseDescription);
+             map.putString("transactionId", transactionId);
+             map.putString("msisdn", msisdn);
+             map.putString("amount", amount);
+             map.putString("refId", refId);
+              promise.resolve(map);
+           }
+});
+    }
 
 
 }
